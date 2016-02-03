@@ -1,12 +1,21 @@
 import java.util.Scanner;
 
-public class CoffeeMakerQuest{
-    public static void main (String[] args){
+public class CoffeeMakerQuest
+{
+    private boolean hasCreamer;
+    private boolean hasCoffee;
+    private boolean hasSugar;
 
-
+    public static void main (String[] args)
+    {
+        while(true)
+        {
+                char userChoice = getInput();
+                selectChoice(userChoice);
+        }
     }
 
-    public char getInput(){
+    public static char getInput(){
         System.out.println("INSTRUCTIONS (N,S,L,I,D,H) >");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
@@ -14,7 +23,7 @@ public class CoffeeMakerQuest{
         return choice;
     }
 
-    public void selectChoice(char input){
+    public static void selectChoice(char input){
         if (input == 'N' || input == 'n'){
             moveNorth();
         }
@@ -36,32 +45,38 @@ public class CoffeeMakerQuest{
     }
 
     //move player north if north door exists
-    public int moveNorth(){
-
+    public static int moveNorth(){
+        return 0;
     }
 
     //move player south if south door exists
-    public int moveSouth(){
-
+    public static int moveSouth(){
+        return 0;
     }
 
     //look in room for item
-    public void look(){
+    public static void look(){
 
     }
 
     //display inventory
-    public void showInventory(){
+    public static void showInventory(){
 
     }
 
     //drink contents of inventory
-    public void drink(){
+    public static void drink(){
 
     }
 
     //display help message
-    public void help(){
-
+    public static void help(){
+        System.out.println("\nHere are the controls:");
+        System.out.println("N -> Move North");
+        System.out.println("S -> Move South");
+        System.out.println("L -> Look");
+        System.out.println("I -> Inspect Inventory");
+        System.out.println("D -> Drink");
+        System.out.println("H -> Help\n");
     }
 }
