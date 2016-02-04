@@ -80,7 +80,7 @@ public class CoffeeMakerQuest
     public static void moveSouth()
     {
         if (roomNum > 0){
-            roomNum--;;
+            roomNum--;
         }
         else{
             System.out.println("There is no door to move South through!");
@@ -135,8 +135,36 @@ public class CoffeeMakerQuest
             System.out.println("Exiting with error code 0");
             System.exit(0);
         }
-        else{   //TODO flesh this out into various cases (i.e. cream and sugar but no coffee)
-            System.out.println("You lose. You die.");
+        else if (!foundCoffee && foundCream && !foundSugar){
+            System.out.println("You drink the cream, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
+            System.exit(1);
+        }
+        else if (foundCoffee && !foundCream && !foundSugar){
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\nExiting with error code 1");
+            System.exit(1);
+        }
+        else if (foundCoffee && !foundCream && !foundSugar){
+            System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
+            System.exit(1);
+        }
+        else if (foundCoffee && foundCream && !foundSugar){
+            System.out.println("Without sugar, the coffee is too bitter.  You cannot study.\nYou lose!\n");
+            System.exit(1);
+        }
+        else if(!foundCoffee && foundCream && foundSugar){
+            System.out.println("You drink the sweetened cream, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
+            System.exit(1);
+        }
+        else if (foundCoffee && !foundCream && foundSugar){
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\nExiting with error code 1");
+            System.exit(1);
+        }
+        else if (!foundCoffee && !foundCream && !foundSugar){
+            System.out.println("You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough.  You cannot study.\nYou lose!\n");
+            System.exit(1);
+        }
+        else{   //this case should never be hit
+            System.out.println("You lose. You die. Also you should never see this screen.");
             System.out.println("Exiting with error code 1");
             System.exit(1);
         }
