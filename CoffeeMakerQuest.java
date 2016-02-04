@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class CoffeeMakerQuest
 {
-    private static boolean foundCream;
-    private static boolean foundCoffee;
-    private static boolean foundSugar;
+    private static boolean foundCream = false;
+    private static boolean foundCoffee = false;
+    private static boolean foundSugar = false;
     private static int roomNum = 0;
     private static String[] roomDescriptions = {
         "You see a Small room.\nIt has a Quaint sofa.\nA Magenta door leads North.",
@@ -19,21 +19,29 @@ public class CoffeeMakerQuest
     {
         while(true)
         {
-                System.out.println("\n"+roomDescriptions[roomNum]+"\n");
-                char userChoice = getInput();
-                selectChoice(userChoice);
+            System.out.println("\n"+roomDescriptions[roomNum]+"\n");
+            String userChoice = getInput();
+            if (userChoice.length() > 1){
+                System.out.println("\nWhat?\n");
+            }
+            else{
+                char choice = userChoice.charAt(0);
+                selectChoice(choice);
+            }
         }
     }
 
-    public static char getInput(){
+    //prints instructions and returns user input string
+    public static String getInput()
+    {
         System.out.println("INSTRUCTIONS (N,S,L,I,D,H) >");
         Scanner sc = new Scanner(System.in);
         String userInput = sc.nextLine();
-        char choice = userInput.charAt(0);
-        return choice;
+        return userInput;
     }
 
-    public static void selectChoice(char input){
+    public static void selectChoice(char input)
+    {
         if (input == 'N' || input == 'n'){
             moveNorth();
         }
@@ -52,10 +60,14 @@ public class CoffeeMakerQuest
         else if (input == 'H' || input == 'h'){
             help();
         }
+        else{
+            System.out.println("\nWhat?\n");
+        }
     }
 
     //move player north if north door exists
-    public static void moveNorth(){
+    public static void moveNorth()
+    {
         if (roomNum < 5){
             roomNum++;
         }
@@ -65,7 +77,8 @@ public class CoffeeMakerQuest
     }
 
     //move player south if south door exists
-    public static void moveSouth(){
+    public static void moveSouth()
+    {
         if (roomNum > 0){
             roomNum--;;
         }
@@ -75,7 +88,8 @@ public class CoffeeMakerQuest
     }
 
     //look in room for item; update booleans if anything is found
-    public static void look(){
+    public static void look()
+    {
         switch(roomNum)
         {
             case 0 :
@@ -103,23 +117,34 @@ public class CoffeeMakerQuest
     }
 
     //display inventory
-    public static void showInventory(){
-        if (!foundCoffee) System.out.println("YOU HAVE NO COFFEE!");
-        if (foundCoffee) System.out.println("You have a cup of delicious coffee.");
+    public static void showInventory()
+    {
+        if (!foundCoffee) System.out.println("\nYOU HAVE NO COFFEE!");
+        if (foundCoffee) System.out.println("\nYou have a cup of delicious coffee.");
         if (!foundCream) System.out.println("YOU HAVE NO CREAM!");
         if (foundCream) System.out.println("You have some fresh cream.");
-        if (!foundSugar) System.out.println("YOU HAVE NO SUGAR!\n");
-        if (foundSugar) System.out.println("You have some tasty sugar.\n");
-
+        if (!foundSugar) System.out.println("YOU HAVE NO SUGAR!");
+        if (foundSugar) System.out.println("You have some tasty sugar.");
     }
 
     //drink contents of inventory
-    public static void drink(){
-
+    public static void drink()
+    {
+        if (foundSugar && foundCream && foundCoffee){
+            System.out.println("You drink the beverage and are ready to study!\nYou win!");
+            System.out.println("Exiting with error code 0");
+            System.exit(0);
+        }
+        else{   //TODO flesh this out into various cases (i.e. cream and sugar but no coffee)
+            System.out.println("You lose. You die.");
+            System.out.println("Exiting with error code 1");
+            System.exit(1);
+        }
     }
 
     //display help message
-    public static void help(){
+    public static void help()
+    {
         System.out.println("\nHere are the controls:");
         System.out.println("N -> Move North");
         System.out.println("S -> Move South");
