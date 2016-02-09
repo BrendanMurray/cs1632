@@ -14,7 +14,40 @@ public class CoffeeMakerQuest
         "You see a Bloodthirsty room.\nIt has a Beautiful bag of money.\nA Purple door leads North.\nA Sandy door leads South.",
         "You see a Rough room.\nIt has a Perfect air hockey table.\nA Minimalist door leads South."
     };
-
+	
+	public boolean getCream()
+	{
+		return foundCream;
+	}
+	public boolean getCoffee()
+	{
+		return foundCoffee;
+	}
+	public boolean getSugar()
+	{
+		return foundSugar;
+	}
+	public int getRoomNum()
+	{
+		return roomNum;
+	}
+	public void setCream(boolean cream)
+	{
+		foundCream = cream;
+	}
+	public void setCoffee(boolean coffee)
+	{
+		foundCoffee = coffee;
+	}
+	public void setSugar(boolean sugar)
+	{
+		foundSugar = sugar;
+	}
+	public void setRoom(int room)
+	{
+		if (room >= 0 && room <= 5)
+			roomNum = room;
+	}
     public static void main (String[] args)
     {
         while(true)
