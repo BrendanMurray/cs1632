@@ -2,70 +2,65 @@ import java.util.Scanner;
 
 public class CoffeeMakerQuest
 {
-    private static boolean foundCream = false;
-    private static boolean foundCoffee = false;
-    private static boolean foundSugar = false;
-    private static int roomNum = 0;
-    private static String[] roomDescriptions = {
-        "You see a Small room.\nIt has a Quaint sofa.\nA Magenta door leads North.",
-        "You see a Funny room.\nIt has a Sad record player.\nA Beige door leads North.\nA Massive door leads South.",
-        "You see a Refinanced room.\nIt has a Tight pizza.\nA Dead door leads North.\nA Smart door leads South.",
-        "You see a Dumb room.\nIt has a Flat energy drink.\nA Vivacious door leads North.\nA Slim door leads South.",
-        "You see a Bloodthirsty room.\nIt has a Beautiful bag of money.\nA Purple door leads North.\nA Sandy door leads South.",
-        "You see a Rough room.\nIt has a Perfect air hockey table.\nA Minimalist door leads South."
-    };
+    private boolean foundCream;
+    private boolean foundCoffee;
+    private boolean foundSugar;
+    private int roomNum;
+    private String[] roomDescriptions;
 
-	public boolean getCream()
-	{
+    public CoffeeMakerQuest(){
+        foundCream = false;
+        foundCoffee = false;
+        foundSugar = false;
+        roomNum = 0;
+        roomDescriptions = new String[6];
+        roomDescriptions[0]="You see a Small room.\nIt has a Quaint sofa.\nA Magenta door leads North.";
+        roomDescriptions[1]="You see a Funny room.\nIt has a Sad record player.\nA Beige door leads North.\nA Massive door leads South.";
+        roomDescriptions[2]="You see a Refinanced room.\nIt has a Tight pizza.\nA Dead door leads North.\nA Smart door leads South.";
+        roomDescriptions[3]="You see a Dumb room.\nIt has a Flat energy drink.\nA Vivacious door leads North.\nA Slim door leads South.";
+        roomDescriptions[4]="You see a Bloodthirsty room.\nIt has a Beautiful bag of money.\nA Purple door leads North.\nA Sandy door leads South.";
+        roomDescriptions[5]="You see a Rough room.\nIt has a Perfect air hockey table.\nA Minimalist door leads South.";        
+    }
+
+	public boolean getCream(){
 		return foundCream;
 	}
-	public boolean getCoffee()
-	{
+
+	public boolean getCoffee(){
 		return foundCoffee;
 	}
-	public boolean getSugar()
-	{
+
+	public boolean getSugar(){
 		return foundSugar;
 	}
-	public int getRoomNum()
-	{
+
+	public int getRoomNum(){
 		return roomNum;
 	}
-	public void setCream(boolean cream)
-	{
+
+	public void setCream(boolean cream){
 		foundCream = cream;
 	}
-	public void setCoffee(boolean coffee)
-	{
+
+	public void setCoffee(boolean coffee){
 		foundCoffee = coffee;
 	}
-	public void setSugar(boolean sugar)
-	{
+
+	public void setSugar(boolean sugar){
 		foundSugar = sugar;
 	}
-	public void setRoom(int room)
-	{
+
+	public void setRoom(int room){
 		if (room >= 0 && room <= 5)
 			roomNum = room;
 	}
-    public static void main (String[] args)
-    {
-        while(true)
-        {
-            System.out.println("\n"+roomDescriptions[roomNum]+"\n");
-            String userChoice = getInput();
-            if (userChoice.length() > 1){
-                System.out.println("\nWhat?\n");
-            }
-            else{
-                char choice = userChoice.charAt(0);
-                selectChoice(choice);
-            }
-        }
+
+    public String getRoomAt(int num){
+        return roomDescriptions[num];
     }
 
     //prints instructions and returns user input string
-    public static String getInput()
+    public String getInput()
     {
         System.out.println("INSTRUCTIONS (N,S,L,I,D,H) >");
         Scanner sc = new Scanner(System.in);
@@ -73,8 +68,15 @@ public class CoffeeMakerQuest
         return userInput;
     }
 
-    public static void selectChoice(char input)
+    public void selectChoice(String sInput)
     {
+        if (sInput.length() > 1){
+            System.out.println("\nWhat?\n");
+            return;
+        }
+
+        char input = sInput.charAt(0);
+
         if (input == 'N' || input == 'n'){
             moveNorth();
         }
@@ -106,7 +108,7 @@ public class CoffeeMakerQuest
     }
 
     //move player north if north door exists
-    public static void moveNorth()
+    public void moveNorth()
     {
         if (roomNum < 5){
             roomNum++;
@@ -117,7 +119,7 @@ public class CoffeeMakerQuest
     }
 
     //move player south if south door exists
-    public static void moveSouth()
+    public void moveSouth()
     {
         if (roomNum > 0){
             roomNum--;
@@ -128,7 +130,7 @@ public class CoffeeMakerQuest
     }
 
     //look in room for item; update booleans if anything is found
-    public static void look()
+    public void look()
     {
         switch(roomNum)
         {
@@ -157,7 +159,7 @@ public class CoffeeMakerQuest
     }
 
     //display inventory
-    public static void showInventory()
+    public void showInventory()
     {
         if (!foundCoffee) System.out.println("\nYOU HAVE NO COFFEE!");
         if (foundCoffee) System.out.println("\nYou have a cup of delicious coffee.");
@@ -168,7 +170,7 @@ public class CoffeeMakerQuest
     }
 
     //drink contents of inventory
-    public static int drink()
+    public int drink()
     {
         int returnVal = -1;
         if (foundSugar && foundCream && foundCoffee){
@@ -208,7 +210,7 @@ public class CoffeeMakerQuest
     }
 
     //display help message
-    public static void help()
+    public void help()
     {
         System.out.println("\nHere are the controls:");
         System.out.println("N -> Move North");
