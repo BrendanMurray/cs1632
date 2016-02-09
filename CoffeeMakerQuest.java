@@ -14,7 +14,7 @@ public class CoffeeMakerQuest
         "You see a Bloodthirsty room.\nIt has a Beautiful bag of money.\nA Purple door leads North.\nA Sandy door leads South.",
         "You see a Rough room.\nIt has a Perfect air hockey table.\nA Minimalist door leads South."
     };
-	
+
 	public boolean getCream()
 	{
 		return foundCream;
@@ -88,7 +88,14 @@ public class CoffeeMakerQuest
             showInventory();
         }
         else if (input == 'D' || input == 'd'){
-            drink();
+            int returnCode = drink();
+            System.out.println("Exiting with error code "+returnCode);
+            if (returnCode == 0){
+                System.exit(0);
+            }
+            else if (returnCode == 1){
+                System.exit(1);
+            }
         }
         else if (input == 'H' || input == 'h'){
             help();
@@ -161,46 +168,43 @@ public class CoffeeMakerQuest
     }
 
     //drink contents of inventory
-    public static void drink()
+    public static int drink()
     {
+        int returnVal = -1;
         if (foundSugar && foundCream && foundCoffee){
             System.out.println("You drink the beverage and are ready to study!\nYou win!");
-            System.out.println("Exiting with error code 0");
-            System.exit(0);
+            returnVal = 0;
         }
         else if (!foundCoffee && foundCream && !foundSugar){
-            System.out.println("You drink the cream, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
-            System.exit(1);
+            System.out.println("You drink the cream, but without caffeine, you cannot study.\nYou lose!\n");
+            returnVal = 1;
         }
         else if (foundCoffee && !foundCream && !foundSugar){
-            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\nExiting with error code 1");
-            System.exit(1);
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\n");
+            returnVal = 1;
         }
         else if (foundCoffee && !foundCream && !foundSugar){
-            System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
-            System.exit(1);
+            System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!\n");
+            returnVal = 1;
         }
         else if (foundCoffee && foundCream && !foundSugar){
             System.out.println("Without sugar, the coffee is too bitter.  You cannot study.\nYou lose!\n");
-            System.exit(1);
+            returnVal = 1;
         }
         else if(!foundCoffee && foundCream && foundSugar){
-            System.out.println("You drink the sweetened cream, but without caffeine, you cannot study.\nYou lose!\nExiting with error code 1");
-            System.exit(1);
+            System.out.println("You drink the sweetened cream, but without caffeine, you cannot study.\nYou lose!\n");
+            returnVal = 1;
         }
         else if (foundCoffee && !foundCream && foundSugar){
-            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\nExiting with error code 1");
-            System.exit(1);
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\n");
+            returnVal = 1;
         }
         else if (!foundCoffee && !foundCream && !foundSugar){
             System.out.println("You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough.  You cannot study.\nYou lose!\n");
-            System.exit(1);
+            returnVal = 1;
         }
-        else{   //this case should never be hit
-            System.out.println("You lose. You die. Also you should never see this screen.");
-            System.out.println("Exiting with error code 1");
-            System.exit(1);
-        }
+
+        return returnVal;
     }
 
     //display help message
