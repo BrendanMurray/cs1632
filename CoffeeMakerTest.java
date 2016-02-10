@@ -126,7 +126,6 @@ public class CoffeeMakerTest
 	}
 	
 	//This is the last of the drink tests. There are 8 in total for every combination of booleans
-	//
 	@Test
 	public void testDrink110Items(){
 		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
@@ -188,6 +187,96 @@ public class CoffeeMakerTest
 		assertEquals(testCQ.getCream(),false);
 		assertEquals(testCQ.getCoffee(),false);
 		assertEquals(testCQ.getSugar(),false);
+	}
+
+	//If selectChoice is called with the argument 'N' or 'n', 
+	//it should select the moveNorth() function and return the appropriate ID
+	@Test
+	public void testChoiceNorth(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		int choiceID = testCQ.selectChoice("N");
+		assertEquals(choiceID,1);
+		choiceID = testCQ.selectChoice("n");
+		assertEquals(choiceID,1);
+	}
+	
+	//If selectChoice is called with the argument 'S' or 's', 
+	//it should select the moveSouth() function and return the appropriate ID
+	@Test
+	public void testChoiceSouth(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		int choiceID = testCQ.selectChoice("S");
+		assertEquals(choiceID,2);
+		choiceID = testCQ.selectChoice("s");
+		assertEquals(choiceID,2);
+	}
+	
+	//If selectChoice is called with the argument 'L' or 'l', 
+	//it should select the look() function and return the appropriate ID
+	@Test
+	public void testChoiceLook(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		
+		int choiceID = testCQ.selectChoice("L");
+		assertEquals(choiceID,3);
+		choiceID = testCQ.selectChoice("l");
+		assertEquals(choiceID,3);
+	}
+	
+	//If selectChoice is called with the argument 'I' or 'i', 
+	//it should select the showInventory() function and return the appropriate ID
+	@Test
+	public void testChoiceInventory(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		
+		int choiceID = testCQ.selectChoice("I");
+		assertEquals(choiceID,4);
+		choiceID = testCQ.selectChoice("i");
+		assertEquals(choiceID,4);
+	}
+	
+	//TODO fix where drink() system.exits so this works
+	public void testChoiceDrink(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		
+		assert(true);
+		//int choiceID = testCQ.selectChoice("D");
+		//assertEquals(choiceID,5);
+		//choiceID = testCQ.selectChoice("d");
+		//assertEquals(choiceID,5);
+	}
+	
+	//If selectChoice is called with the argument 'H' or 'h', 
+	//it should select the help() function and return the appropriate ID
+	@Test
+	public void testChoiceHelp(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		
+		int choiceID = testCQ.selectChoice("H");
+		assertEquals(choiceID,6);
+		choiceID = testCQ.selectChoice("h");
+		assertEquals(choiceID,6);
+	}
+	
+	//If the user inputs something outside of the expected input,
+	//The program should reply "what?"
+	//When this happens, selectChoice returns the appropriate ID
+	@Test
+	public void testChoiceWrong(){
+		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
+		
+		int choiceID = testCQ.selectChoice("A");
+		assertEquals(choiceID,-1);
+		choiceID = testCQ.selectChoice("B");
+		assertEquals(choiceID,-1);
+		choiceID = testCQ.selectChoice("C");
+		assertEquals(choiceID,-1);
+		choiceID = testCQ.selectChoice("Fizz");
+		assertEquals(choiceID,-1);
+		choiceID = testCQ.selectChoice("Buzz");
+		assertEquals(choiceID,-1);
+		choiceID = testCQ.selectChoice("FizzBuzz");
+		assertEquals(choiceID,-1);
 	}
 
 }

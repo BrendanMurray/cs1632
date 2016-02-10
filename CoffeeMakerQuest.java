@@ -68,30 +68,36 @@ public class CoffeeMakerQuest
         return userInput;
     }
 
-    public void selectChoice(String sInput)
+    public int selectChoice(String sInput)
     {
+        int choiceNum = -1;
         if (sInput.length() > 1){
             System.out.println("\nWhat?\n");
-            return;
+            return choiceNum;
         }
 
         char input = sInput.charAt(0);
 
         if (input == 'N' || input == 'n'){
             moveNorth();
+            choiceNum = 1;
         }
         else if (input == 'S' || input == 's'){
             moveSouth();
+            choiceNum = 2;
         }
         else if (input == 'L' || input == 'l'){
             look();
+            choiceNum = 3;
         }
         else if (input == 'I' || input == 'i'){
             showInventory();
+            choiceNum = 4;
         }
         else if (input == 'D' || input == 'd'){
             int returnCode = drink();
             System.out.println("Exiting with error code "+returnCode);
+            choiceNum = 5;
             if (returnCode == 0){
                 System.exit(0);
             }
@@ -101,10 +107,12 @@ public class CoffeeMakerQuest
         }
         else if (input == 'H' || input == 'h'){
             help();
+            choiceNum = 6;
         }
         else{
             System.out.println("\nWhat?\n");
         }
+        return choiceNum;
     }
 
     //move player north if north door exists
