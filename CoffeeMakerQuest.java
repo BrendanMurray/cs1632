@@ -97,12 +97,11 @@ public class CoffeeMakerQuest
         else if (input == 'D' || input == 'd'){
             int returnCode = drink();
             System.out.println("Exiting with error code "+returnCode);
-            choiceNum = 5;
             if (returnCode == 0){
-                System.exit(0);
+                choiceNum = 6;
             }
             else if (returnCode == 1){
-                System.exit(1);
+                choiceNum = 7;
             }
         }
         else if (input == 'H' || input == 'h'){
@@ -186,31 +185,31 @@ public class CoffeeMakerQuest
             returnVal = 0;
         }
         else if (!foundCoffee && foundCream && !foundSugar){
-            System.out.println("You drink the cream, but without caffeine, you cannot study.\nYou lose!\n");
+            System.out.println("You drink the cream, but without caffeine, you cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if (foundCoffee && !foundCream && !foundSugar){
-            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\n");
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if (foundCoffee && !foundCream && !foundSugar){
-            System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!\n");
+            System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if (foundCoffee && foundCream && !foundSugar){
-            System.out.println("Without sugar, the coffee is too bitter.  You cannot study.\nYou lose!\n");
+            System.out.println("Without sugar, the coffee is too bitter.  You cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if(!foundCoffee && foundCream && foundSugar){
-            System.out.println("You drink the sweetened cream, but without caffeine, you cannot study.\nYou lose!\n");
+            System.out.println("You drink the sweetened cream, but without caffeine, you cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if (foundCoffee && !foundCream && foundSugar){
-            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!\n");
+            System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!");
             returnVal = 1;
         }
         else if (!foundCoffee && !foundCream && !foundSugar){
-            System.out.println("You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough.  You cannot study.\nYou lose!\n");
+            System.out.println("You drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough.  You cannot study.\nYou lose!");
             returnVal = 1;
         }
 
