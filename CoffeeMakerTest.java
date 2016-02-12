@@ -3,6 +3,7 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class CoffeeMakerTest
 {
@@ -12,7 +13,7 @@ public class CoffeeMakerTest
 		CoffeeMakerQuest coffeeQ = new CoffeeMakerQuest();
 		for (int i = 0; i < 6; i++)
 			coffeeQ.moveNorth();
-		assertEquals(coffeeQ.getRoomNum(), 5); //Make roomNum increases for every moveNorth call
+		assertEquals(coffeeQ.getRoomNum(), 5); //Make sure roomNum increases for every moveNorth call
 	}
 	
 	@Test
@@ -235,17 +236,32 @@ public class CoffeeMakerTest
 		assertEquals(choiceID,4);
 	}
 	
-	//TODO fix where drink() system.exits so this works
+	//If selectChoice is called with "D" or "d" on empty inventory, should return 7
+	//uses mock object w/ stubbed drink method since selectChoice calls drink().
+	@Test
 	public void testChoiceDrink(){
-		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
-		
-		assert(true);
-		//int choiceID = testCQ.selectChoice("D");
-		//assertEquals(choiceID,5);
-		//choiceID = testCQ.selectChoice("d");
-		//assertEquals(choiceID,5);
+		CoffeeMakerQuest testCQ =mock(CoffeeMakerQuest.class);
+		when(testCQ.drink()).thenReturn(1);
+		when(testCQ.selectChoice(anyString())).thenCallRealMethod();
+		int choiceID = testCQ.selectChoice("D");
+		assertEquals(choiceID,7);
+		choiceID = testCQ.selectChoice("d");
+		assertEquals(choiceID,7);
 	}
 	
+	//If selectChoice is called with "D" or "d" when inventory full, should return 6
+	//uses mock object w/stubbed drink method since selectChoice calls drink().
+	@Test
+	public void testChoiceDrink2()
+	{
+		CoffeeMakerQuest testCQ = mock(CoffeeMakerQuest.class);
+		when(testCQ.drink()).thenReturn(0);
+		when(testCQ.selectChoice(anyString())).thenCallRealMethod();
+		int choiceID = testCQ.selectChoice("D");
+		assertEquals(choiceID, 6);
+		choiceID = testCQ.selectChoice("d");
+		assertEquals(choiceID, 6);
+	}
 	//If selectChoice is called with the argument 'H' or 'h', 
 	//it should select the help() function and return the appropriate ID
 	@Test
@@ -253,18 +269,17 @@ public class CoffeeMakerTest
 		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
 		
 		int choiceID = testCQ.selectChoice("H");
-		assertEquals(choiceID,6);
+		assertEquals(choiceID,8);
 		choiceID = testCQ.selectChoice("h");
-		assertEquals(choiceID,6);
+		assertEquals(choiceID,8);
 	}
 	
 	//If the user inputs something outside of the expected input,
 	//The program should reply "what?"
-	//When this happens, selectChoice returns the appropriate ID
+	//When this happens, selectChoice returns -1 as an error code
 	@Test
 	public void testChoiceWrong(){
 		CoffeeMakerQuest testCQ = new CoffeeMakerQuest();
-		
 		int choiceID = testCQ.selectChoice("A");
 		assertEquals(choiceID,-1);
 		choiceID = testCQ.selectChoice("B");

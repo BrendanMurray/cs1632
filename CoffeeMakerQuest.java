@@ -106,7 +106,7 @@ public class CoffeeMakerQuest
         }
         else if (input == 'H' || input == 'h'){
             help();
-            choiceNum = 6;
+            choiceNum = 8;
         }
         else{
             System.out.println("\nWhat?\n");
@@ -192,7 +192,7 @@ public class CoffeeMakerQuest
             System.out.println("Without cream, you get an ulcer and cannot study.\nYou lose!");
             returnVal = 1;
         }
-        else if (foundCoffee && !foundCream && !foundSugar){
+        else if (!foundCoffee && !foundCream && foundSugar){
             System.out.println("You eat the sugar, but without caffeine, you cannot study.\nYou lose!");
             returnVal = 1;
         }
